@@ -92,6 +92,12 @@ class Fract(Fractions):
         return self.__A / self.__B
 
 
+def convert_a_string_to_a_fraction(line):
+    A = line[:line.index('/')]
+    B = line[line.index('/')+1:]
+    return Fract(A,B)
+
+
 A = Fract(5, 2)
 B = Fract(6, 4)
 a = Fraction(5, 2)
@@ -99,3 +105,5 @@ b = Fraction(6, 4)
 print(A > B)
 print(a > b)
 print(3 / A)
+D=convert_a_string_to_a_fraction('5/6')
+print(D)

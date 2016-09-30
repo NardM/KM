@@ -6,86 +6,90 @@ class Fractions(metaclass=ABCMeta):
     __metaclass__ = ABCMeta
 
     def __init__(self, numerator, denominator, sign=1, intPart=0):
-        self.sign = sign  # знак дроби (+ или -)
-        self.intPart = intPart  # целая часть дроби
-        self.numerator = numerator  # числитель дроби
-        self.denominator = denominator  # знаменатель дроби
+        self.__sign = sign  # знак дроби (+ или -)
+        self.__intPart = intPart  # целая часть дроби
+        self.__numerator = numerator  # числитель дроби
+        self.__denominator = denominator  # знаменатель дроби
 
 
 class Fract(Fractions):
     def __init__(self, numerator, denominator, sign=1, intPart=0):
+        """
+        :rtype: int, int, int, int
+        """
         super().__init__(numerator, denominator, sign, intPart)
-        self.A = (intPart * denominator + numerator) * sign
-        self.B = denominator
+        self.__A = (intPart * denominator + numerator) * sign
+        self.__B = denominator
 
     def __repr__(self):
-        return 'Fract({}, {})'.format(self.A, self.B)
+        return 'Fract({}, {})'.format(self.__A, self.__B)
 
     def __str__(self):
-        return '({}, {})'.format(self.A, self.B)
+        return '({}, {})'.format(self.__A, self.__B)
 
     def __add__(self, other):
-        return Fract(self.A * other.B + other.A * self.B, self.B * other.B)
+        return Fract(self.__A * other.__B + other.__A * self.__B, self.__B * other.__B)
 
     def __radd__(self, other):
-        return Fract(other * self.B + self.A, self.B)
+        return Fract(other * self.__B + self.__A, self.__B)
 
     def __sub__(self, other):
-        return Fract(self.A * other.B - other.A * self.B, self.B * other.B)
+        return Fract(self.__A * other.__B - other.__A * self.__B, self.__B * other.__B)
 
     def __rsub__(self, other):
-        return Fract(other * self.B - self.A, self.B)
+        return Fract(other * self.__B - self.__A, self.__B)
 
     def __mul__(self, other):
-        return Fract(self.A * other.A, self.B * other.B)
+        return Fract(self.__A * other.__A, self.__B * other.__B)
 
     def __rmul__(self, other):
-        return Fract(self.A * other, self.B)
+        return Fract(self.__A * other, self.__B)
 
     def __truediv__(self, other):
-        return Fract(self.A * other.B, self.B * other.A)
+        return Fract(self.__A * other.__B, self.__B * other.__A)
 
     def __rtruediv__(self, other):
-        return Fract(self.A, self.B * other)
+        return Fract(self.__A, self.__B * other)
 
     def __lt__(self, other):
-        return self.A / self.B < other.A / other.B
+        return self.__A / self.__B < other.__A / other.__B
 
     def __gt__(self, other):
-        return self.A / self.B > other.A / other.B
+        return self.__A / self.__B > other.__A / other.__B
 
     def __le__(self, other):
-        return self.A / self.B <= other.A / other.B
+        return self.__A / self.__B <= other.__A / other.__B
 
     def __eq__(self, other):
-        return self.A / self.B == other.A / other.B
+        return self.__A / self.__B == other.__A / other.__B
 
     def __ne__(self, other):
-        return self.A / self.B != other.A / other.B
+        return self.__A / self.__B != other.__A / other.__B
 
     def __ge__(self, other):
-        return self.A / self.B >= other.A / other.B
+        return self.__A / self.__B >= other.__A / other.__B
 
     def __del__(self):
         print("Вызван метод __del__()")
 
-    def GetMixedView(self):
-        number = self.A / self.B
-        share = number - int(number) * self.sign
-        n = int(number) * self.sign
+    def get_mixed_view(self):
+        """преобразование дроби в смешанный вид"""
+        number = self.__A / self.__B
+        share = number - int(number) * self.__sign
+        n = int(number) * self.__sign
         return "Целая часть " + str(n) + "\r\nДробная часть " + str(share)
 
-    def Cancellation(self):
-        return self.A / self.B * self.sign
+    def cancellation(self):
+        """сокращения дроби"""
+        return self.__A / self.__B * self.__sign
 
-    def GetIntPart(self):
-        return self.A // self.B
+    def get_int_part(self):
+        """выделения целой части дроби"""
+        return self.__A // self.__B
 
-    def Double(self):
-        return self.A / self.B
-
-
-
+    def double(self):
+        """преобразования дроби в тип float"""
+        return self.__A / self.__B
 
 
 A = Fract(5, 2)

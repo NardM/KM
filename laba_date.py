@@ -10,9 +10,6 @@ def selection_of_the_day(day):
     return day
 
 
-
-
-
 class LabaDate:
     def __init__(self, day, month=None, year=None):
         self.month_31 = [1, 3, 5, 7, 8, 10, 11]

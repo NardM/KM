@@ -39,7 +39,6 @@ class Fract(Fractions):
     def __rsub__(self, other):
         return Fract(other * self.__B - self.__A, self.__B)
 
-
     def __mul__(self, other):
         return Fract(self.__A * other.__A, self.__B * other.__B)
 
@@ -92,6 +91,7 @@ class Fract(Fractions):
         """преобразования дроби в тип float"""
         return self.__A / self.__B
 
+
 def convert_a_string_to_a_fraction(line):
     """Переобразовать строку в дробь"""
     A = line[:line.index('/')]
@@ -100,25 +100,26 @@ def convert_a_string_to_a_fraction(line):
 
 
 def convert_float_in_fraction(float_number):
-    float_number=str(float_number)
-    B = float_number[float_number.index('.')+1:]
-    return int(float(float_number)*(10*len(B))), int((len(B)*10))
+    float_number = str(float_number)
+    B = float_number[float_number.index('.') + 1:]
+    return int(float(float_number) * (10 * len(B))), int((len(B) * 10))
+
 
 def main():
-    A = Fract(convert_float_in_fraction(2.5)[0],convert_float_in_fraction(2.5)[1])
-    B = Fract(25,10)
-    print(A==B)
+    A = Fract(convert_float_in_fraction(2.5)[0], convert_float_in_fraction(2.5)[1])
+    B = Fract(25, 10)
+    print(A == B)
     print(convert_float_in_fraction(2.5))
-    #A = Fract(1, 2)
-    #B = Fract(2, 4)
+    # A = Fract(1, 2)
+    # B = Fract(2, 4)
     a = Fraction(25, 100)
     b = Fraction(25, 100)
-    #print(A == B)
+    # print(A == B)
     print(a == b)
-    #print(3 / A)
-    #D = convert_a_string_to_a_fraction('5/6')
-    #print(D)
-    #print(A.get_int_part())
+    # print(3 / A)
+    # D = convert_a_string_to_a_fraction('5/6')
+    # print(D)
+    # print(A.get_int_part())
 
 
 if __name__ == '__main__':

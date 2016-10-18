@@ -34,7 +34,7 @@ class Corrector:
                 meetings += 1
             elif c == ')':
                 meetings -= 1
-                symbol_count+=1
+                symbol_count += 1
                 if meetings < 0:
                     return False
 
@@ -60,9 +60,9 @@ def brackets_check(s):
     return meetings == 0
 
 
-#print("OK" if brackets_check(text) else "FAIL")
+# print("OK" if brackets_check(text) else "FAIL")
 
-text = '''Though it was winter Vadim Petrovich, the agronomist of the farm, had a busy day last Tuesday.
+text = '''Though. it was winter Vadim Petrovich, the agronomist of the farm, had a busy day last Tuesday.
 He began his morning with the radio, he listened to the news. At half past seven he got up, washed, did his morning
 exercises at an open window, dressed and had breakfast.
 Vadim Petrovich likes mornings, because he can see his family, and he can have a talk with his wife and children.
@@ -75,8 +75,10 @@ He ate his dinner, rested a little, and went back to the farm. Vadim Petrovich h
 to write some letters, and to do some other work. At 5 o'clock he had an important meeting.
 And only at 8 o'clock he came home.'''
 
-offers = text.split('.') if '.' in text else '' + text.split('?') if '?' in text else '' + text.split('!') if '!' in text else ''
-for i in range(text.count('.')+text.count('?')+text.count('!')):
-    r = text.find('.')
+#offers = text.split('.') if '.' in text else '' + text.split('?') if '?' in text else '' + text.split('!') if '!' in text else ''
+for i in range(len(text)):
+    if text[i] == '.':
+        if i != text.rfind('.'):
+            text[i + 2] ='2'
 
-print(offers)
+print(text)

@@ -12,18 +12,18 @@ def selection_of_the_day(day):
 
 class LabaDate:
     def __init__(self, day, month=None, year=None):
-        self.month_31 = [1, 3, 5, 7, 8, 10, 11]
-        self.month_30 = [4, 6, 9, 12]
+        self.month_31 = [1, 3, 5, 7, 8, 10, 12]
+        self.month_30 = [4, 6, 9, 11]
         if isinstance(day, str):
             self.day, self.month, self.year = self.convert_in_date(day)
         else:
             self.day = day
             self.month = month
             self.year = year
-        if 12 < self.month or 0 >= self.month:
+        '''if 12 < self.month or 0 >= self.month:
             raise print('Неправильно введена дата, а именно месяц')
         if 31 < self.day or 0 >= self.day or self.correct_month():
-            raise print('Неправильно введена дата, а именно день')
+            raise print('Неправильно введена дата, а именно день')'''
         self.bissextile = 1 if self.bissextile_year() else 0
 
     def correct_month(self):
@@ -51,6 +51,12 @@ class LabaDate:
             return LabaDate(self.day, self.month, self.year)
         except BaseException:
             print("Неправильное вычитание")
+
+    def __str__(self):
+        return '{} {} {}'.format(selection_of_the_day(self.day), selection_of_the_month(self.month), self.year)
+
+    def __repr__(self):
+        return '{}.{}.{}'.format(self.day, self.month, self.year)
 
     def __lt__(self, other):
         if self.year == other.year:
@@ -93,11 +99,15 @@ class LabaDate:
                     self.month_day(31)
                 if self.day == 0:
                     self.day_month(31)
+                if self.day == 29 or self.day == 30 or self.day == 31:
+                    break
             if self.month in self.month_30:
                 if self.day > 30:
                     self.month_day(30)
                 if self.day == 0:
                     self.day_month(30)
+                if self.day == 29 or self.day == 30:
+                    break
             if self.month == 2:
                 if self.day > 28 + self.bissextile:
                     self.month_day(28 + self.bissextile)
@@ -107,7 +117,7 @@ class LabaDate:
             self.month, self.year = self.month % 12, self.year + self.month // 12
 
     def select_month_sub(self):
-        while self.day < 0:
+        while self.day <= 0:
             if 12 - abs(self.month) in self.month_31:
                 self.day_month_2(31)
                 if self.day == 0:
@@ -120,7 +130,7 @@ class LabaDate:
                 self.day_month_2(28 + self.bissextile)
                 if self.day == 0:
                     self.day_month(28 + self.bissextile)
-        while self.month < 0:
+        while self.month <= 0:
             self.year, self.month = self.year - 1, 12 - abs(self.month)
             if self.month == 0:
                 self.month = 1
@@ -128,16 +138,10 @@ class LabaDate:
     def bissextile_year(self):
         return True if self.year % 4 == 0 and self.year % 100 != 0 or self.year % 400 == 0 else False
 
-    def __str__(self):
-        return '{} {} {}'.format(selection_of_the_day(self.day), selection_of_the_month(self.month), self.year)
 
-    def __repr__(self):
-        return '{}.{}.{}'.format(self.day, self.month, self.year)
-
-
-a = LabaDate(25, 11, 2017)
-b = LabaDate(28, 11, 2011)
+a = LabaDate(31, 12, 2017)
+b = LabaDate(24, 10, 2016)
 c = LabaDate('05.11.2107')
-print(a - b)
+print(a + 1)
 
 # print(convert_in_date('02.05.2015'))
